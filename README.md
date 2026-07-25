@@ -60,6 +60,16 @@ SCI0/EGA 原始畫面保留了強烈的 16 色像素風格；中文化補上 Big
 
 ![中文說明書中的遊戲封面與案件畫面](docs/screenshots/manual-cover-back.jpg)
 
+## 推廣影片
+
+這支約 30 秒的無音樂字幕短片，從中文說明書的案件前言開始，接著展示通緝犯資料、中文開場旁白、文字指令回應與復古 EGA 畫面：
+
+[![觀看《警察故事 2〈復仇記〉》繁中化推廣影片](docs/screenshots/02-opening-briefing-cht.png)](docs/promo/pq2-cht-promo.mp4)
+
+▶️ [下載／觀看推廣影片 `pq2-cht-promo.mp4`](docs/promo/pq2-cht-promo.mp4)
+
+影片由 [`tools/build_promo_video.sh`](tools/build_promo_video.sh) 使用 repository 內的公開截圖重新產生，不包含原始遊戲資源或遊戲音樂。
+
 ## 本專案完成內容
 
 | 項目 | 狀態 |
