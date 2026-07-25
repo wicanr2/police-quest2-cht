@@ -10,12 +10,11 @@
 | M3 全文翻譯（text/message + script 內嵌 + 動態句） | ✅ 3,936/3,956（99%）可見文字；剩餘 20 個內部/編碼鍵保留原值 |
 | M4 baked-art / 選單完整化 | ✅ PQ2 title `pic=46` 已確認，`pq2_title.ovl` 已生成並掛入引擎 |
 | M5 正常路徑實機驗收與英文對照 | ✅ 中文 `out/e2e-debug/noesc_parser.png` 與英文 `out/e2e-en-noesc/noesc_parser.png` 均完成正常 parser 回應驗收 |
-| M6 三平台 patch/full 打包 | 🔄 Windows zip、Linux AppImage patch/full 已實際驗證；`dist-cht/` 已補齊供 macOS workflow 注入，universal `.app/.dmg` 仍需 CI runner 實跑 |
+| M6 三平台 patch/full 打包 | ✅ Windows zip、Linux AppImage patch/full 與 GitHub Actions macOS universal `.app/.dmg` 均已產出並驗證 |
 
 ## 下一步
 
-1. 在 macOS CI runner 產出並驗證 universal `.app/.dmg` patch/full。
-2. 發布前由使用者確認是否建立 GitHub Release（目前不執行對外發布）。
+1. 發布前由使用者確認是否建立 GitHub Release（目前不執行對外發布）。
 
 ## 本輪產物
 

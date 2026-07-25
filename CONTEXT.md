@@ -11,8 +11,9 @@
 - M3：`translation/glossary.tsv` 建立警用術語；目前實際翻譯 3,936/3,956 則，另含 `batch/02-core.tsv` 至 `138-personnel-files.tsv`，均已合併並重烘；合併器已修正可接受以 `#1.` 開頭的遊戲鍵，建置器改用批次數字順序避免新譯文被舊批次覆蓋。
 - M4：SCI 日誌確認 PQ2 標題為 `pic=46`，`game/pq2_title.ovl` 已由繁中「復仇記」生成；引擎 hook 與 patch 已同步。
 - M5：Docker 實機截圖 `out/e2e-final/cht_skip_10.png`、`out/shots/idt_a.png` 顯示中文；不跳過 intro 的正常流程已在 100 秒後成功送入 parser，`out/e2e-debug/noesc_parser.png` 顯示繁中回應，`out/e2e-en-noesc/noesc_parser.png` 顯示英文原文回應。
-- M6：主要三平台包裝腳本已改成 PQ2 名稱與資料路徑；公開中文資料已整理至 `dist-cht/`，macOS data 包已用假 `.app` smoke test 驗證；Windows zip 與 Linux AppImage patch/full 已實際產出並檢查，真正 universal macOS `.app/.dmg` 仍需 macOS CI runner。
+- M6：主要三平台包裝腳本已改成 PQ2 名稱與資料路徑；公開中文資料已整理至 `dist-cht/`；Windows zip、Linux AppImage patch/full 與 GitHub Actions macOS universal `.app/.dmg` 已實際產出並檢查。
 - 交付驗收：`dist-all/PQ2-CHT-win64-patch.zip`、`PQ2-CHT-win64.zip`、`PQ2-CHT-patch-x86_64.AppImage`、`PQ2-CHT-full-x86_64.AppImage` 均已產生；Windows binary 為 PE32+，Linux AppImage 解包後 patch 無 `RESOURCE.*`/ROM、full 含 8 個 `RESOURCE.*` 與 MT-32 ROM。
+- macOS 交付驗收：GitHub Actions run [30163658485](https://github.com/wicanr2/police-quest2-cht/actions/runs/30163658485) 成功；`dist-all/PQ2-CHT-macos-universal.tar.gz` 與 `.dmg` 已下載。tar 內執行檔為 Mach-O universal（x86_64 + arm64），四個中文資料檔均在 app bundle 且與 `dist-cht/` 校驗一致。
 
 ## 方法約束
 

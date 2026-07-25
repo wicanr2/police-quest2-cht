@@ -135,7 +135,7 @@ M5 要走「進遊戲點 NPC」的路徑時得先修這個。
 4. **M4**：`SCI_LOG_GFX=1` 找標題 pic id 改掉 `paint16.cpp` 寫死的 `926`；選單字串在 `script.997`
    （抽字工具會漏，要手動撈 bare item 補進 skeleton）；判 baked-art 是 view（`sci0_view.py` 可重繪）還是 pic（只能疊 `.ovl`）。
 5. **M5**：修 xdotool → 走正常玩家路徑實機驗收；跑一次英文版對照判別迴歸。
-6. **M6**：打包腳本裡的遊戲名還是 SQ3 的，要全改；GitHub repo `wicanr2/police-quest2-cht` 目前是空的
+6. **M6**：已完成 PQ2 命名、三平台打包與 GitHub Actions macOS universal 驗證；GitHub repo `wicanr2/police-quest2-cht` 已有 `main` 分支與首個完整提交
    （**發 Release 屬對外動作，先取得使用者確認**）。
 
 ## 5. 目錄現況
@@ -160,8 +160,7 @@ workplace/
 └── out/probe, out/e2e/     ← headless 截圖
 ```
 
-**git 狀態：`workplace/` 是本機 git repo 但仍 0 commit**，全部檔案 untracked。首次 commit 前確認
-`.gitignore` 有擋掉 `game/`、`extract/dump/`、`scummvm-src/`、`out/`、`*.ROM`（目前有擋）。
+**git 狀態：** `workplace/` 已提交至 `main`；`.gitignore` 擋掉 `game/`、`extract/dump/`、`scummvm-src/`、`out/`、`*.ROM`，公開 repo 不含原始遊戲資源。
 
 ## 6. Codex 2026-07-25 收尾進度
 
@@ -171,6 +170,7 @@ workplace/
 - Docker 實機截圖已看到繁中繪字與「復仇記」疊圖：`out/e2e-final/cht_skip_10.png`、`out/shots/idt_a.png`；英文回歸 `out/e2e-en/cht_skip_10.png` 保持英文畫面。
 - 從 pinned `3d408ec` 乾淨 tree 執行 `tools/apply_patches.sh` 已通過；Docker 重編 `scummvm` 已通過。
 - 主要 macOS/Windows/AppImage 包裝腳本已改成 PQ2 名稱、路徑與 `pq2-cht.png`，macOS data 包裝已用假 `.app` smoke test 驗證，包內含 translation、兩顆字型與 title overlay。
-- Windows `PE32+` binary、patch/full zip 與 Linux AppImage patch/full 已實際產出並檢查內容；macOS data 包已用假 `.app` smoke test 驗證，真正 universal `.app/.dmg` 仍須 macOS runner。正常玩家 parser 自動輸入仍受 Docker xdotool 焦點限制，但中文畫面與英文回歸已完成可視驗收。
+- Windows `PE32+` binary、patch/full zip、Linux AppImage patch/full 與 GitHub Actions macOS universal `.app/.dmg` 已實際產出並檢查內容。macOS workflow run [30163658485](https://github.com/wicanr2/police-quest2-cht/actions/runs/30163658485) 成功；下載產物為 `dist-all/PQ2-CHT-macos-universal.tar.gz`、`dist-all/PQ2-CHT-macos-universal.dmg`，tar 執行檔確認為 x86_64 + arm64 universal，四個中文資料檔校驗一致。正常玩家 parser 自動輸入仍受 Docker xdotool 焦點限制，但中文畫面與英文回歸已完成可視驗收。
 - 追加驗證：`docker/Dockerfile.capture` 已加入 Fluxbox；新增 `tools/probe_parser_noesc.sh` 不跳過 intro，100 秒後以視窗 ID 輸入 parser。`out/e2e-debug/noesc_parser.png` 顯示「抱歉，邦茲，你得做得更好！」，英文對照 `out/e2e-en-noesc/noesc_parser.png` 顯示原文，M5 已完成。
 - `dist-cht/` 已加入可公開分發的 `translation.tsv`、兩顆 Big5 字型與 `pq2_title.ovl`；重新 smoke test `package_macos_data.sh` 成功，macOS CI workflow 不再依賴被 gitignore 的本機 `game/` 資料夾。
+- GitHub repository：`https://github.com/wicanr2/police-quest2-cht`；目前只提交 ScummVM patch、工具、文件與 `dist-cht/` 公開中文資料，沒有提交原始遊戲資源、ROM 或 DOS executable。
