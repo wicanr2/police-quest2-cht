@@ -1,0 +1,19 @@
+# 原始遊戲資料與私人完整包不可進 patch-only repo
+game/
+handbook/
+extract/dump/
+out/
+dist-all/
+build/
+scummvm-src/
+scummvm-win/
+*.ROM
+*.core
+
+# 本機/暫存檔
+__pycache__/
+*.pyc
+.DS_Store
+tools/.cache/
+tools/assets/kq4-cht.png
+tools/assets/sq3-cht.png

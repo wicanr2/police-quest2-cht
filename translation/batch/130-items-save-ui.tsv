@@ -1,0 +1,50 @@
+A knife, crudely fashioned from a prison spoon.	一把用監獄湯匙粗製而成的刀。
+To prevent hearing damage while practice firing.	用來防止練習射擊時造成聽力損傷。
+Just a plain old plane ticket.	只是一張普通的舊機票。
+Cast of a footprint.	腳印模型。
+Badge #5558013.	警徽編號5558013。
+A thumb print.	一枚拇指指紋。
+Three rounds of.38 caliber hollow point.	三發 .38 口徑空尖彈。
+Jailer's empty gun holster.	獄警的空槍套。
+A set of fingerprints.	一組指紋。
+An old mug shot of Bains.	班恩斯的舊大頭照。
+Corner of an envelope with name and address.	寫有姓名和地址的信封角落。
+Envelope with corner torn off.	角落被撕掉的信封。
+Discarded clothes with blood stains.	帶有血跡的丟棄衣物。
+Motel key for room #108. 'Property of Snuggler's Inn'.	108號房的汽車旅館鑰匙。「偎依者旅館所有」。
+Coagulated blood in an evidence vial.	證物小瓶裡的凝固血液。
+The label reads..."Pink Rapture by Donna Lee Cosmetics."	標籤寫著……「唐娜．李化妝品的粉紅狂喜。」
+Hand held transmitter/reciever. 'Property of Steelton Police Dept.'	手持式收發器。「鋼頓警察局所有。」
+4" Smith & Wesson .38 caliber revolver.	4吋史密斯威森 .38 口徑左輪手槍。
+Your standard sewer gas mask.	你的標準下水道防毒面具。
+Bomb instructions.	炸彈使用說明。
+Registration papers for the car.	汽車登記文件。
+Colby's business card, found in Bains' motel room.	柯比的名片，在班恩斯的汽車旅館房間裡找到。
+Note you found on Marie's door.	你在瑪麗門上找到的紙條。
+"LPD Sonny Bonds Detective"	「萊頓警察局 桑尼．邦茲警探」
+%ssg.dir	%ssg.dir
+You must type a description for the game.	你必須輸入遊戲描述。
+New save-game directory:	新的存檔目錄：
+%s is not a valid directory	%s 不是有效的目錄。
+File: %s	檔案：%s
+Your save game disk is full. You must either use another disk or save over an existing saved game.	你的存檔磁碟已滿。你必須使用另一張磁碟，或覆蓋現有的存檔。
+That game was saved under a different interpreter. It cannot be restored.	那個遊戲是在不同的直譯器下儲存的，無法還原。
+I don't understand "%s".	我不明白「%s」。
+That doesn't appear to be a proper sentence.	那看起來不像正確的句子。
+That sentence doesn't make sense.	那句話沒有意義。
+You've left me responseless.	你讓我無言以對。
+Please insert your %s disk in drive %s.	請將你的%s磁碟放入磁碟機%s。
+Designed by: Jim Walls Illustrated by: Vu Nguyen Cheryl Cornelius Programmed by: Jerry Shaw Bob Fischbach David Slayback Bob Heitman Mickie Lee Chris Hoyt Music by: Mark Seibert Q.A. by: D.J.,B.W.,K.S.,R.B. K.W.,R.M.,C.B. & J.C. Version %s	設計：Jim Walls 插畫：Vu Nguyen、Cheryl Cornelius 程式設計：Jerry Shaw、Bob Fischbach、David Slayback、Bob Heitman、Mickie Lee、Chris Hoyt 音樂：Mark Seibert 品質保證：D.J.、B.W.、K.S.、R.B.、K.W.、R.M.、C.B.、J.C. 版本 %s
+DURING THE GAME: Click at the top of the screen or press ESC to use the menus. Additional shortcuts are shown there. IN TYPING WINDOWS: Arrows, Home and End move the cursor, or click anywhere with the mouse. Ctrl-C clears the line. IN DIALOG WINDOWS: Select the outlined item with <Enter> and use Tab and Shift-Tab to move between choices. Or click with the mouse to select an item. ESC always cancels.	遊戲中：點擊畫面頂端或按 ESC 使用選單，其他快捷鍵也會顯示在那裡。輸入視窗：方向鍵、Home 和 End 可移動游標，也可以用滑鼠點擊任意位置。Ctrl-C 清除整行。對話視窗：按 <Enter> 選取框線項目，使用 Tab 和 Shift-Tab 在選項間移動，也可用滑鼠點選。ESC 一律取消。
+Do you really want to restart your game?	你真的要重新開始遊戲嗎？
+Are you really turning in your badge?	你真的要交回警徽嗎？
+Every cop needs a 10-7 (break) now and then. Keith will smoke a cigarette until you return.	每個警察偶爾都需要 10-7（休息）。你回來前，基斯會抽根菸。
+%s [Collection of size %d]	%s[集合大小 %d]
+%s [List of size %d]	%s[清單大小 %d]
+%s [Set of size %d]	%s[集合大小 %d]
+Turn Off	關閉
+Turn On	開啟
+Jim shakes his head and says...	吉姆搖搖頭說……
+Restore	還原
+Restart	重新開始
+Quit	離開

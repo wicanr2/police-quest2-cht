@@ -1,0 +1,33 @@
+#!/bin/bash
+# 從 pinned upstream 抓 pristine，對 scummvm-src 逐檔 diff → 重生 patches/0001-sci-cht-zh_twn.patch
+set -e
+cd "$(dirname "$0")/.."
+COMMIT=$(cat patches/UPSTREAM_COMMIT.txt)
+BASE="https://raw.githubusercontent.com/scummvm/scummvm/$COMMIT"
+SRC=scummvm-src
+PRIS=/tmp/pq2_pristine
+FILES=(
+  engines/sci/engine/kstring.cpp
+  engines/sci/graphics/cache.cpp
+  engines/sci/graphics/paint16.cpp
+  engines/sci/graphics/menu.cpp
+  engines/sci/graphics/ports.cpp
+  engines/sci/graphics/screen.cpp
+  engines/sci/graphics/screen.h
+  engines/sci/graphics/text16.cpp
+  engines/sci/graphics/view.cpp
+  engines/sci/graphics/view.h
+  engines/sci/module.mk
+  engines/sci/event.cpp
+  engines/sci/sci.cpp
+  engines/sci/sci.h
+)
+rm -rf "$PRIS"; mkdir -p "$PRIS"
+OUT=patches/0001-sci-cht-zh_twn.patch
+: > "$OUT"
+for f in "${FILES[@]}"; do
+  mkdir -p "$PRIS/$(dirname "$f")"
+  curl -sfL "$BASE/$f" -o "$PRIS/$f" || { echo "抓 pristine 失敗: $f"; exit 1; }
+  diff -u --label "a/$f" --label "b/$f" "$PRIS/$f" "$SRC/$f" >> "$OUT" || true
+done
+echo "受改檔: ${#FILES[@]}；patch 行數: $(wc -l < "$OUT")"
