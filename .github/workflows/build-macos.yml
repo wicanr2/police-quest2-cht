@@ -221,6 +221,20 @@ jobs:
       - name: 注入中文資料(tools/package_macos_data.sh)→ 產最終 .tar.gz + .dmg
         run: |
           bash tools/package_macos_data.sh dist-macos/PQ2-CHT-engine-macos-universal.tar.gz dist-macos/out
+          set -euo pipefail
+          FINAL=dist-macos/out/PQ2-CHT-macos-universal.tar.gz
+          test -s "$FINAL"
+          CHECK="$RUNNER_TEMP/pq2-macos-final-check"
+          rm -rf "$CHECK"; mkdir -p "$CHECK"
+          tar xzf "$FINAL" -C "$CHECK"
+          test -x "$CHECK/ScummVM.app/Contents/MacOS/scummvm"
+          test -x "$CHECK/ScummVM.app/Contents/MacOS/scummvm.bin"
+          grep -q -- '--extrapath=' "$CHECK/ScummVM.app/Contents/MacOS/scummvm"
+          grep -q -- '--language=tw' "$CHECK/ScummVM.app/Contents/MacOS/scummvm"
+          for f in translation.tsv qfg1_big5.fnt qfg1_big5_hi.fnt pq2_title.ovl; do
+            test -s "$CHECK/ScummVM.app/Contents/Resources/cht-data/$f"
+          done
+          echo 'macOS final bundle launcher/data gate: PASS'
 
       - uses: actions/upload-artifact@v4
         with:

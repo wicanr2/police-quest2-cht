@@ -8,7 +8,8 @@
 # 用法:tools/package_macos_data.sh <engine.tar.gz 或 .app 路徑> <輸出目錄>
 #
 # 交付原則(硬):.app 本身只含 patched 引擎;中文資料放進
-# .app/Contents/Resources/cht-data/,原遊戲資源與 MT-32 ROM 絕不塞入。
+# .app/Contents/Resources/cht-data/,並由 bundle launcher 自動帶 --extrapath;
+# 原遊戲資源與 MT-32 ROM 絕不塞入。
 set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 SRC="${1:?用法: package_macos_data.sh <engine.tar.gz|.app> <輸出目錄>}"
@@ -37,6 +38,22 @@ cp "$DATA_DIR"/*.fnt "$CHT_DIR/"
 [ -f "$DATA_DIR/pq2_title.ovl" ] && cp "$DATA_DIR/pq2_title.ovl" "$CHT_DIR/"   # 中文標題疊圖
 echo ">>    staged $(ls "$CHT_DIR" | wc -l) 個中文資料檔 → $CHT_DIR"
 
+# macOS 雙擊 .app 時沒有 Windows .bat/AppImage AppRun 可以補 --extrapath。
+# 把真正 binary 改名，放一個 bundle launcher 在 CFBundleExecutable 原位置，
+# 讓 GUI 與命令列啟動都能找到 Resources/cht-data 內的 translation.tsv、字型與 .ovl。
+BIN="$APP/Contents/MacOS/scummvm"
+[ -x "$BIN" ] || { echo "!! 找不到可執行的 macOS ScummVM binary: $BIN" >&2; exit 1; }
+mv "$BIN" "$APP/Contents/MacOS/scummvm.bin"
+cat > "$BIN" <<'WRAP'
+#!/bin/bash
+set -e
+DIR="$(cd "$(dirname "$0")" && pwd)"
+EXTRA="$DIR/../Resources/cht-data"
+exec "$DIR/scummvm.bin" --extrapath="$EXTRA" --language=tw "$@"
+WRAP
+chmod 755 "$BIN" "$APP/Contents/MacOS/scummvm.bin"
+echo ">> installed macOS launcher: --extrapath=$CHT_DIR --language=tw"
+
 README="$APP/Contents/Resources/README-cht.txt"
 cat > "$README" <<'EOF'
 警察故事 2：復仇記（Police Quest II: The Vengeance）繁體中文化 — macOS 版
@@ -52,17 +69,16 @@ cat > "$README" <<'EOF'
 
 安裝步驟
 --------
-1. 準備好你自己的遊戲資料夾（內含 RESOURCE.* 等 SCI 資料）。
-2. 把 cht-data/ 資料夾內的所有檔案，複製進上述遊戲資料夾（與 RESOURCE.* 同一層）。
-3. 把 ScummVM.app 拖進「應用程式」，第一次執行前先解除 Gatekeeper 隔離（未簽署 app）：
+1. 準備好你自己的遊戲資料夾（內含 RESOURCE.* 等 SCI 資料）。不要移動或刪除 app 內的 cht-data/。
+2. 把 ScummVM.app 拖進「應用程式」，第一次執行前先解除 Gatekeeper 隔離（未簽署 app）：
      xattr -dr com.apple.quarantine /Applications/ScummVM.app
-4. 開啟 ScummVM.app，在啟動器按「Add Game...」，選剛才那個遊戲資料夾加入。
+3. 開啟 ScummVM.app，在啟動器按「Add Game...」，選剛才那個遊戲資料夾加入。
    （警察故事 2 的自動偵測 id 為 pq2）
-5. 加入後在 Game Options 把 Language 設為 Chinese (Taiwan)（或啟動時帶 --language=tw），
-   即可看到繁體中文。
+4. bundle launcher 會自動帶 --extrapath=app/Contents/Resources/cht-data 與 --language=tw，
+   不需要手動把中文檔複製到遊戲資料夾，即可看到繁體中文。
 
 也可終端機直接啟動：
-  ScummVM.app/Contents/MacOS/scummvm --language=tw --path="你的遊戲資料夾路徑" --auto-detect
+  ScummVM.app/Contents/MacOS/scummvm --path="你的遊戲資料夾路徑" --auto-detect
 
 MT-32 音效
 --------
