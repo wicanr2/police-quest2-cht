@@ -4,6 +4,7 @@ set -euo pipefail
 ROOT=$(cd "$(dirname "$0")/.." && pwd)
 OUT="$ROOT/docs/promo/pq2-cht-promo.mp4"
 FONT=/usr/share/fonts/opentype/noto/NotoSansCJK-Bold.ttc
+MUSIC_RAW="${PROMO_MUSIC_RAW:-$ROOT/out/promo-audio/cap.raw}"
 
 mkdir -p "$(dirname "$OUT")"
 
@@ -24,6 +25,26 @@ ffmpeg -y -loglevel error \
 [v0][v1][v2][v3][v4][v5]concat=n=6:v=1:a=0,format=yuv420p[v]" \
   -map "[v]" -t 30 -r 24 -an -c:v libx264 -preset ultrafast -crf 25 \
   -movflags +faststart "$OUT"
+
+test -s "$MUSIC_RAW" || {
+  echo "找不到原版音軌：$MUSIC_RAW" >&2
+  echo "請先以 tools/record_music.sh 錄製 cap.raw，不能產生無聲推廣片。" >&2
+  exit 2
+}
+
+# cap.raw 是 44.1 kHz、雙聲道、signed 16-bit little-endian 的 MT-32 disk-audio。
+# 影片較短時裁切並淡出，保留原版音色，不加入自製或無版權不明的配樂。
+DURATION=$(ffprobe -v error -show_entries format=duration -of csv=p=0 "$OUT")
+FADE_START=$(awk "BEGIN {print $DURATION - 3}")
+TMP_VIDEO="${OUT%.mp4}.silent.mp4"
+mv "$OUT" "$TMP_VIDEO"
+ffmpeg -y -loglevel error \
+  -i "$TMP_VIDEO" \
+  -f s16le -ar 44100 -ac 2 -i "$MUSIC_RAW" \
+  -filter_complex "[1:a]atrim=duration=$DURATION,afade=t=in:st=0:d=1.5,afade=t=out:st=$FADE_START:d=3,aresample=async=1[a]" \
+  -map 0:v -map "[a]" -t "$DURATION" \
+  -c:v copy -c:a aac -b:a 192k -movflags +faststart "$OUT"
+rm -f "$TMP_VIDEO"
 
 ffprobe -v error -show_entries format=duration:stream=codec_name,width,height \
   -of default=noprint_wrappers=1 "$OUT"

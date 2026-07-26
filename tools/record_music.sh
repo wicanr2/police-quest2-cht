@@ -3,6 +3,8 @@
 set -e
 export HOME=/tmp XDG_RUNTIME_DIR=/tmp DISPLAY=:99
 export SDL_AUDIODRIVER=disk SDL_DISKAUDIOFILE=/out/cap.raw
+[ -s /roms/MT32_CONTROL.ROM ] || { echo '缺少 /roms/MT32_CONTROL.ROM；請先用正確檔名掛載合法 ROM' >&2; exit 2; }
+[ -s /roms/MT32_PCM.ROM ] || { echo '缺少 /roms/MT32_PCM.ROM；請先用正確檔名掛載合法 ROM' >&2; exit 2; }
 Xvfb :99 -screen 0 640x480x24 >/tmp/xvfb.log 2>&1 &
 sleep 2
 cd /src
