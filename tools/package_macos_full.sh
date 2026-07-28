@@ -18,9 +18,9 @@ WORK="$(mktemp -d)"; APP="$WORK/ScummVM.app"
 tar xzf "$CI_TAR" -C "$WORK"
 [ -d "$APP" ] || { echo "!! CI tar 內找不到 ScummVM.app" >&2; exit 1; }
 
-# 1) 統一 game 夾：遊戲資源（PQ2 SCI0 為小寫 resource.*）+ cht 對白/字型/ovl
+# 1) 統一 game 夾：遊戲資源（PQ2 DOS SCI0 使用大寫 RESOURCE.*）+ cht 對白/字型/ovl
 GAME="$APP/Contents/Resources/game"; mkdir -p "$GAME"
-cp "$GAME_SRC"/resource.* "$GAME/"
+cp "$GAME_SRC"/RESOURCE.* "$GAME/"
 cp "$GAME_SRC"/translation.tsv "$GAME_SRC"/qfg1_big5.fnt "$GAME_SRC"/qfg1_big5_hi.fnt "$GAME_SRC"/pq2_title.ovl "$GAME/"
 # 2) MT-32 ROM（正名）
 cp "$ROM_SRC"/MT32_CONTROL.1987-10-07.v1.07.ROM "$GAME/MT32_CONTROL.ROM"
